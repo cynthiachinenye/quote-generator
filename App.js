@@ -1,11 +1,13 @@
 // create variables
 
-let btn = document.querySelector('#new-qoute');
-let qoute = document.querySelector('.qoute');
-let person = document.querySelector('.person');
+const btn = document.querySelector('#new-qoute');
 
- 
+const qoute = document.querySelector('.qoute');
+
+const person = document.querySelector('.person');
+
 const qoutes = [{
+    
     qoute:'The best way to find yourself is to lose yourself in the service of others',
     person:'Mahatma Gandhi',
 },
@@ -15,7 +17,7 @@ const qoutes = [{
 },
 
 {
-    qoute:'At his best, manis the nobiest of all animals, separated from law and justice he is the worst',
+    qoute:'At his best, man is the nobiest of all animals, separated from law and justice he is the worst',
     person:'Aristotle',
 },
 {
@@ -47,7 +49,16 @@ const qoutes = [{
 },
 {
     qoute:'the journey of a thousand miles begins with one step',
-    person:''
-}
-
+    person:'lao tzu'
+},
 ]
+
+btn.addEventListener('click', function(){
+    
+    let data = Math.floor(Math.random()* qoutes.length);
+   
+    qoute.innerText = qoutes[data].qoute;
+
+    person.innerText =qoutes[data].person;
+    
+})
