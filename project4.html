@@ -1,32 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:ital@0;1&family=Poppins:ital@1&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,400;1,500&display=swap"
       rel="stylesheet"
     />
-</head>
-<body>
+  </head>
+  <style>
+    body {
+      background: url("img/pexels-photo-9986229.jpeg") no-repeat center
+        center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: #fff;
+      width: 60%;
+      height: 250px;
+      border: 1px solid #fff;
+      border-radius: 30px;
+      box-shadow: 0 0 3px;
+    }
+    #timer {
+      padding: 0px auto;
+      width: 100%;
+      font-size: 72px;
+      text-align: center;
+      margin: 40px 5px auto;
+    }
+    .buttons {
+      text-align: center;
+    }
+    .button {
+      margin: 0 10px;
+      border: none;
+    }
+    .fa-solid {
+      font-size: 1rem;
+      padding: 10px;
+      color: #fff;
+    }
+    #startStopBtn {
+      background: green;
+      border: none;
+    }
+    #resetBtn {
+      background: red;
+      border: none;
+    }
+    #pause {
+      background: orange;
+    }
+  </style>
+  <body>
     <div class="container">
-        <div id="timer">00:00:00</div>
+      <div id="timer">00:00:00</div>
 
-        <div class="buttons">
-            <button id="startStopBtn">
-                <i class="fa-solid fa-play" id="play"></i>
-            </button>
+      <div class="buttons">
+        <button id="startStopBtn">
+          <i class="fa-solid fa-play" id="play"></i>
+        </button>
 
-            <button id="resetBtn">
-                <i class="fa-solid fa-arrow-rotate-left" id="reset"></i>
-            </button>
-        </div>
-
+        <button id="resetBtn">
+          <i class="fa-solid fa-rotate-left" id="reset"></i>
+        </button>
+      </div>
     </div>
-    
-</body>
+    <script>
+      const startBtn = document.querySelector("#startStopBtn");
+      const resertBtn = document.querySelector("#resetBtn");
+
+      let seconds = 0;
+      let minutes = 0;
+      let hours = 0;
+
+      // variable for leading zero
+       let leadingSeconds = 0;
+       let leadingMinutes = 0;
+       let leadingHours = 0;
+
+      // function
+
+      function stopWatch() {
+        seconds++;
+
+        if (seconds / 60 === 1) {
+          seconds = 0;
+          minutes++;
+
+          if (minutes / 60 === 1) {
+            minutes = 0;
+            hours++;
+          }
+        }
+
+        if(seconds < 10 ){
+            leadingSeconds='0' + seconds.toString();
+        }else{
+            leadingSeconds = seconds;
+        }
+        if(minutes < 10 ){
+            leadingMinutes='0' + minutes.toString();
+        }else{
+            leadingMinutes = minutes;
+        }
+        if(hours < 10 ){
+            leadingHours='0' + hours.toString();
+        }else{
+            leadingHours = hours;
+        }
+
+        let displayTimer = (document.getElementById("timer").innerText =
+          leadingHours + ":" + leadingMinutes + ":" + leadingSeconds);
+      }
+
+
+      startBtn.addEventListener('clcik', function(){
+        if(timerStatus === "stopped"){
+            timerInterval = window.setInterval(stopWatch, 1000);
+            document.getElementById('startStopBtn').innerHTML=`<i class="fa-solid fa-pause " id="pause"></i>`;
+            timerStatus = 'started';
+        } else{
+            window.clearInterval(timerInterval);
+            document.getElementById('startStopBtn').innerHTML = `      <i class="fa-solid fa-play" id="play"></i>`;
+            timerStatus = 'stopped';
+        }
+      })
+
+      
+    </script>
+  </body>
 </html>
