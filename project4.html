@@ -63,6 +63,26 @@
     }
     #pause {
       background: orange;
+      border:none
+    }
+
+    .pages {
+      display: flex;
+    }
+
+    .next {
+      border: 1px solid #fff;
+      margin: 50px auto;
+      width: 100px;
+      height: 40px;
+      border-radius: 10px;
+      background: #262626;
+      padding-top: 10px;
+      text-align: center;
+    }
+    .next a {
+      text-decoration: none;
+      color: #fff;
     }
   </style>
   <body>
@@ -79,6 +99,11 @@
         </button>
       </div>
     </div>
+     
+    <div class="pages">
+        <div class="next"><a href="project5.html">Next page</a></div>
+        <div class="next"><a href="project3.html">prevous page</a></div>
+      </div>
     <script>
       const startBtn = document.querySelector("#startStopBtn");
       const resertBtn = document.querySelector("#resetBtn");
@@ -88,9 +113,14 @@
       let hours = 0;
 
       // variable for leading zero
-       let leadingSeconds = 0;
-       let leadingMinutes = 0;
-       let leadingHours = 0;
+      let leadingSeconds = 0;
+      let leadingMinutes = 0;
+      let leadingHours = 0;
+
+      //    variable for set interval & timer
+
+      let timerInterval =null;
+      let timerStatus="stopped";
 
       // function
 
@@ -107,40 +137,45 @@
           }
         }
 
-        if(seconds < 10 ){
-            leadingSeconds='0' + seconds.toString();
-        }else{
-            leadingSeconds = seconds;
+        if (seconds < 10) {
+          leadingSeconds = "0" + seconds.toString();
+        } else {
+          leadingSeconds = seconds;
         }
-        if(minutes < 10 ){
-            leadingMinutes='0' + minutes.toString();
-        }else{
-            leadingMinutes = minutes;
+        if (minutes < 10) {
+          leadingMinutes = "0" + minutes.toString();
+        } else {
+          leadingMinutes = minutes;
         }
-        if(hours < 10 ){
-            leadingHours='0' + hours.toString();
-        }else{
-            leadingHours = hours;
+        if (hours < 10) {
+          leadingHours = "0" + hours.toString();
+        } else {
+          leadingHours = hours;
         }
 
         let displayTimer = (document.getElementById("timer").innerText =
           leadingHours + ":" + leadingMinutes + ":" + leadingSeconds);
       }
 
-
-      startBtn.addEventListener('clcik', function(){
-        if(timerStatus === "stopped"){
-            timerInterval = window.setInterval(stopWatch, 1000);
-            document.getElementById('startStopBtn').innerHTML=`<i class="fa-solid fa-pause " id="pause"></i>`;
-            timerStatus = 'started';
-        } else{
-            window.clearInterval(timerInterval);
-            document.getElementById('startStopBtn').innerHTML = `      <i class="fa-solid fa-play" id="play"></i>`;
-            timerStatus = 'stopped';
+      startBtn.addEventListener("click", function () {
+        if (timerStatus === "stopped") {
+          timerInterval = setInterval(stopWatch, 1000);
+          document.getElementById("startStopBtn").innerHTML = `<i class="fa-solid fa-pause " id="pause"></i>`;
+          timerStatus = "started";
+        } else {
+          clearInterval(timerInterval);
+          document.getElementById("startStopBtn").innerHTML = `<i class="fa-solid fa-play" id="play"></i>`;
+          timerStatus = "stopped";
         }
-      })
+      });
+       resertBtn.addEventListener('click', function(){
+          clearInterval(timerInterval);
+          seconds=0;
+          minutes=0;
+          hours=0;
 
-      
+          document.getElementById('timer').innerHTML ='00:00:00';
+       })
     </script>
   </body>
 </html>
