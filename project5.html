@@ -1,11 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo list</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@0;1&family=Poppins:ital@1&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    body {
+      background: url("img/free-photo-of-palm-trees-against-sky.jpeg") no-repeat
+        center center/cover;
+      height: 100vh;
+      display:flex;
+      justify-content: center;
+      align-items:center;
+    }
+    #add-task-container{
+        width:350px;
+        padding:20px 10px;
+        background:#fff;
+        border-radius:20px;
+        box-shadow:0 0 3px;
+        display:flex;
+    }
+    input{
+        flex:5;
+        margin-right:10px;
+        border-radius:10px;
+        font-size:1.2rem;
+        padding:5px;
+    }
+    #add-task{
+        flex:1;
+        font-size:1.2rem;
+        padding:5px;
+        background:#fff;
+        color:green;
+        border:2px solid green;
+        border-radius:10px;
+        transition:.3s;
+    }
+    #add-task:hover{
+        background:green;
+        color:#fff;
+    }
+    .task{
+        background:#fff;
+        width:100%;
+        border-radius:10px;
+        box-shadow:0 0 3px;
+        padding:5px;
+        margin-top:15px;
+        margin-bottom:5px;
+        display:flex;
+        justify-content:space-between;
+    }
+    .task li{
+        list-style: none;
+        flex: 4;
+        padding:5px;
+        font-size:1.3rem;
+        margin:10px;
+    }
+    .task button{
+        flex:1;
+        border-radius:10px;
+        background:#fff;
+        cursor:pointer;
+    }
+    .task .checkTask:hover{
+       background:orange;
+       color:#ffff;
+    }
+    .task .checkTask{
+        color:orange;
+        margin-right:5px;
+        border:2px solid orange;
+        font-size:1.5rem;
+    }
+    .task .deleteTask:hover{
+        background:red;
+        color:#fff;
+    }
+    .task .deleteTask{
+        color:red;
+        margin-right:5px;
+        border:2px solid red;
+        font-size:1.5rem;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div id="add-task-container">
+        <input type="text" placeholder="Enter Task" id="input-task" />
+        <button id="add-task"><i class="fa-solid fa-plus"></i></button>
+      </div>
+
+      <div id="task-container"></div>
+    </div>
+    <script>
+        const addTask =document.getElementById('add-task');
+        const inputTask = document.getElementById('input-task');
+        const taskContainer = document.getElementById('task-container')
+
+
+        addTask.addEventListener('click', function(){
+            let task = document.createElement('div');
+            task.classList.add('task');
+
+            let li = document.createElement('li');
+            li.innerText= `${inputTask.value}`;
+            task.appendChild(li)
+
+            let checkButton = document.createElement('button');
+            checkButton.innerHTML = '<i class="fa-solid  fa-check"></i>';
+            checkButton.classList.add('checkTask');
+            task.appendChild(checkButton);
+
+            let deleteButton = document.createElement('button');
+            deleteButton.innerHTML ='<i class="fa-solid  fa-trash-can"></i>';
+            deleteButton.classList.add('deleteTask');
+            task.appendChild(deleteButton);
+
+            if(inputTask.value === '') {
+                alert('Please Enter a Task')
+            }else{
+                taskContainer.appendChild(task);
+            }
+
+            inputTask.value = '';
+
+            checkButton.addEventListener('click', function(){
+                 checkButton.parentElement.style.textDecoration = 'line-through';
+            });
+            deleteButton.addEventListener('click', function(e){
+                let target = e.target;
+                target.parentElement.parentElement.remove();
+            })
+
+        })
+    </script>
+  </body>
 </html>
